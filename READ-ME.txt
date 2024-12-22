@@ -1,0 +1,6 @@
+Be sure to have Node.js and VS code to activate REACT app.
+Once you unzipped the file, use cd MATCHING-GAME on the terminal, use npm install jspdf jspdf-autotable for the pdf feature, and use npm install and npm start to see full REACT app in the browser.
+
+Feel free to change any styles you want to help on the exams.
+
+Happy Coding!

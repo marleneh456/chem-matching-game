@@ -28,6 +28,12 @@
   background-color: #0056b3;
 }
 
+.button-row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
 .chem-page {
   text-align: center;
   margin-top: 20px;
@@ -239,5 +245,73 @@
   }
   
   
+  .add-flashcard, .delete-flashcard {
+    background-color: #f8f8f8;
+    padding: 20px;
+    margin: 30px auto;
+    width: 90%;
+    max-width: 700px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  
+  .add-flashcard h2,
+  .delete-flashcard h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .add-flashcard input[type="text"] {
+    width: 45%;
+    padding: 10px;
+    margin: 5px;
+    font-size: 16px;
+  }
+  
+  .upload-box {
+    border: 2px dashed #aaa;
+    padding: 15px;
+    margin: 10px auto;
+    font-size: 14px;
+    color: #666;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+    position: relative;
+    max-width: 500px;
+  }
+  
+  .upload-box input[type="file"] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+  }
+  
+  .add-flashcard button,
+  .delete-flashcard button {
+    padding: 10px 20px;
+    margin: 10px 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .add-flashcard button:hover,
+  .delete-flashcard button:hover {
+    background-color: #0056b3;
+  }
+  
+  .delete-flashcard div {
+    margin-bottom: 10px;
+  }
   
   

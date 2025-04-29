@@ -314,4 +314,23 @@
     margin-bottom: 10px;
   }
   
+  .file-info {
+    margin: 5px auto;
+    padding: 8px;
+    background-color: #eee;
+    max-width: 300px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+  }
+  
+  .remove-image {
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: red;
+    cursor: pointer;
+  }
   

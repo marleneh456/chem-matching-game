@@ -251,9 +251,10 @@ const defaultItems = [
 const shuffleArray = (array) => [...array].sort(() => Math.random() - 0.5);
 
 const MatchingGame = () => {
+  const chapterKey = "execrise-ch11-flashcards";
   const [initialItems, setInitialItems] = useState(() => {
-    const saved = localStorage.getItem("flashcards");
-    return saved ? JSON.parse(saved) : defaultItems;
+  const saved = localStorage.getItem(chapterKey);
+  return saved ? JSON.parse(saved) : defaultItems;
   });
 
   const [termItems, setTermItems] = useState(shuffleArray([...initialItems]));

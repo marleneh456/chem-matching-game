@@ -1,5 +1,5 @@
 // src/App.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Ch11MatchingGame from "./components/Ch11MatchingGame";
 import Ch11ExerciseMatchingGame from "./components/Ch11ExerciseMatchingGame";
@@ -28,20 +28,28 @@ import NewExerciseMatchingGame from "./components/NewExerciseMatchingGame";
 
 function App() {
   const [activePage, setActivePage] = useState("home");
-  const [chapters, setChapters] = useState([
-    { id: 11, name: "Chapter 11" },
-    { id: 12, name: "Chapter 12" },
-    { id: 13, name: "Chapter 13" },
-    { id: 14, name: "Chapter 14" },
-    { id: 15, name: "Chapter 15" },
-    { id: 16, name: "Chapter 16" },
-    { id: 17, name: "Chapter 17" },
-    { id: 18, name: "Chapter 18" },
-    { id: 19, name: "Chapter 19" },
-    { id: 20, name: "Chapter 20" },
-    { id: 21, name: "Chapter 21" },
-  ]);
+  const [chapters, setChapters] = useState(() => {
+    const saved = localStorage.getItem("userChapters");
+    return saved ? JSON.parse(saved) : [
+      { id: 11, name: "Chapter 11" },
+      { id: 12, name: "Chapter 12" },
+      { id: 13, name: "Chapter 13" },
+      { id: 14, name: "Chapter 14" },
+      { id: 15, name: "Chapter 15" },
+      { id: 16, name: "Chapter 16" },
+      { id: 17, name: "Chapter 17" },
+      { id: 18, name: "Chapter 18" },
+      { id: 19, name: "Chapter 19" },
+      { id: 20, name: "Chapter 20" },
+      { id: 21, name: "Chapter 21" },
+    ];
+  });
+
   const [chapterInput, setChapterInput] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem("userChapters", JSON.stringify(chapters));
+  }, [chapters]);
 
   const goToPage = (page) => {
     setActivePage(page);
@@ -79,7 +87,7 @@ function App() {
       default: return <NewMatchingGame chapterId={`chapter${id}`} />;
     }
   };
-  
+
   const renderExerciseMatchingGame = (id) => {
     switch (id) {
       case 11: return <Ch11ExerciseMatchingGame />;
@@ -104,76 +112,18 @@ function App() {
           <h1>Welcome to the Chemistry Game</h1>
 
           <div className="pdf-link">
-          <a href="./CH1020.Syl.F24.pdf" target="_blank" rel="noopener noreferrer">
-          CHEM 1020 Fall 2024 syllabus PDF
-        </a>
-
-        <br />
-
-        <a href="./CH1021 F24 syllabus.pdf" target="_blank" rel="noopener noreferrer">
-          CHEM 1021 Fall 2024 syllabus PDF
-        </a>
-
-        <br />
-
-         <a href="./Exam1.Review.pdf" target="_blank" rel="noopener noreferrer">
-          CHEM 1020 Exam 1 Review PDF
-        </a>
-        
-        <br />
-
-        <a href="./Exam2.Review.pdf" target="_blank" rel="noopener noreferrer">
-          CHEM 1020 Exam 2 Review PDF
-        </a>
-
-        <br />
-
-        <a href="./REVIEW FOR EXAM III  Chem 1020.pdf" target="_blank" rel="noopener noreferrer">
-          CHEM 1020 Exam 3 Review PDF
-        </a>
-
-        <br />
-
-         <a href="./Exam4.Review.pdf" target="_blank" rel="noopener noreferrer">
-          CHEM 1020 Exam 4 Review PDF
-        </a>
-
-        <br />
-
-         <a href="./CHEM1020. Review.Exam 5.pdf" target="_blank" rel="noopener noreferrer">
-          CHEM 1020 Exam 5 Review PDF
-        </a>
-
-        <br />
-
-         <a href="./Chem 1020Final Review.pdf" target="_blank" rel="noopener noreferrer">
-          CHEM 1020 Final Review PDF
-        </a>
-        
-        <br />
-
-        <a href="./AlkylGroups.pdf" target="_blank" rel="noopener noreferrer">
-          Alkyl Groups PDF
-        </a>
-        
-        <br />
-
-         <a href="./Functional.Groups.pdf" target="_blank" rel="noopener noreferrer">
-          Functional Groups PDF
-        </a>
-
-        <br />
-
-         <a href="./Biomolecules.matching.pdf" target="_blank" rel="noopener noreferrer">
-          Biomolecules PDF
-        </a>
-
-        <br />
-
-         <a href="./Lipids.Practice.pdf" target="_blank" rel="noopener noreferrer">
-          Lipids Practice PDF
-        </a>
-
+            <a href="./CH1020.Syl.F24.pdf" target="_blank" rel="noopener noreferrer">CHEM 1020 Fall 2024 syllabus PDF</a><br />
+            <a href="./CH1021 F24 syllabus.pdf" target="_blank" rel="noopener noreferrer">CHEM 1021 Fall 2024 syllabus PDF</a><br />
+            <a href="./Exam1.Review.pdf" target="_blank" rel="noopener noreferrer">CHEM 1020 Exam 1 Review PDF</a><br />
+            <a href="./Exam2.Review.pdf" target="_blank" rel="noopener noreferrer">CHEM 1020 Exam 2 Review PDF</a><br />
+            <a href="./REVIEW FOR EXAM III  Chem 1020.pdf" target="_blank" rel="noopener noreferrer">CHEM 1020 Exam 3 Review PDF</a><br />
+            <a href="./Exam4.Review.pdf" target="_blank" rel="noopener noreferrer">CHEM 1020 Exam 4 Review PDF</a><br />
+            <a href="./CHEM1020. Review.Exam 5.pdf" target="_blank" rel="noopener noreferrer">CHEM 1020 Exam 5 Review PDF</a><br />
+            <a href="./Chem 1020Final Review.pdf" target="_blank" rel="noopener noreferrer">CHEM 1020 Final Review PDF</a><br />
+            <a href="./AlkylGroups.pdf" target="_blank" rel="noopener noreferrer">Alkyl Groups PDF</a><br />
+            <a href="./Functional.Groups.pdf" target="_blank" rel="noopener noreferrer">Functional Groups PDF</a><br />
+            <a href="./Biomolecules.matching.pdf" target="_blank" rel="noopener noreferrer">Biomolecules PDF</a><br />
+            <a href="./Lipids.Practice.pdf" target="_blank" rel="noopener noreferrer">Lipids Practice PDF</a>
           </div>
 
           <p>Select which button to click to study over:</p>
@@ -181,14 +131,9 @@ function App() {
           <div className="chem-buttons">
             {chapters.map((chapter) => (
               <div key={chapter.id} className="button-row">
-              <button onClick={() => goToPage(`chapter${chapter.id}`)}>
-                {chapter.name}
-              </button>
-              <button onClick={() => goToPage(`exercise-chapter${chapter.id}`)}>
-                Exercise {chapter.name}
-              </button>
-            </div>
-            
+                <button onClick={() => goToPage(`chapter${chapter.id}`)}>{chapter.name}</button>
+                <button onClick={() => goToPage(`exercise-chapter${chapter.id}`)}>Exercise {chapter.name}</button>
+              </div>
             ))}
           </div>
 
@@ -201,9 +146,7 @@ function App() {
               style={{ padding: "5px", marginRight: "10px" }}
             />
             <button onClick={handleAddChapter}>➕ Add Chapter</button>
-            <button onClick={handleDeleteChapter} style={{ marginLeft: "10px" }}>
-              ➖ Delete Chapter
-            </button>
+            <button onClick={handleDeleteChapter} style={{ marginLeft: "10px" }}>➖ Delete Chapter</button>
           </div>
         </div>
       )}
@@ -212,17 +155,13 @@ function App() {
         <React.Fragment key={chapter.id}>
           {activePage === `chapter${chapter.id}` && (
             <div className="chem-page">
-              <button className="go-back-button" onClick={() => goToPage("home")}>
-                Go Back to the Home Page
-              </button>
+              <button className="go-back-button" onClick={() => goToPage("home")}>Go Back to the Home Page</button>
               {renderMatchingGame(chapter.id)}
             </div>
           )}
           {activePage === `exercise-chapter${chapter.id}` && (
             <div className="chem-page">
-              <button className="go-back-button" onClick={() => goToPage("home")}>
-                Go Back to the Home Page
-              </button>
+              <button className="go-back-button" onClick={() => goToPage("home")}>Go Back to the Home Page</button>
               {renderExerciseMatchingGame(chapter.id)}
             </div>
           )}

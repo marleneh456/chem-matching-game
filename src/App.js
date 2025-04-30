@@ -23,6 +23,8 @@ import Ch20MatchingGame from "./components/Ch20MatchingGame";
 import Ch20ExerciseMatchingGame from "./components/Ch20ExerciseMatchingGame";
 import Ch21MatchingGame from "./components/Ch21MatchingGame";
 import Ch21ExerciseMatchingGame from "./components/Ch21ExerciseMatchingGame";
+import NewMatchingGame from "./components/NewMatchingGame";
+import NewExerciseMatchingGame from "./components/NewExerciseMatchingGame";
 
 function App() {
   const [activePage, setActivePage] = useState("home");
@@ -63,59 +65,35 @@ function App() {
 
   const renderMatchingGame = (id) => {
     switch (id) {
-      case 11:
-        return <Ch11MatchingGame />;
-      case 12:
-        return <Ch12MatchingGame />;
-      case 13:
-        return <Ch13MatchingGame />;
-      case 14:
-        return <Ch14MatchingGame />;
-      case 15:
-        return <Ch15MatchingGame />;
-      case 16:
-        return <Ch16MatchingGame />;
-      case 17:
-        return <Ch17MatchingGame />;
-      case 18:
-        return <Ch18MatchingGame />;
-      case 19:
-        return <Ch19MatchingGame />;
-      case 20:
-        return <Ch20MatchingGame />;
-      case 21:
-        return <Ch21MatchingGame />;
-      default:
-        return <p>Matching Game Not Available</p>;
+      case 11: return <Ch11MatchingGame />;
+      case 12: return <Ch12MatchingGame />;
+      case 13: return <Ch13MatchingGame />;
+      case 14: return <Ch14MatchingGame />;
+      case 15: return <Ch15MatchingGame />;
+      case 16: return <Ch16MatchingGame />;
+      case 17: return <Ch17MatchingGame />;
+      case 18: return <Ch18MatchingGame />;
+      case 19: return <Ch19MatchingGame />;
+      case 20: return <Ch20MatchingGame />;
+      case 21: return <Ch21MatchingGame />;
+      default: return <NewMatchingGame chapterId={`chapter${id}`} />;
     }
   };
-
+  
   const renderExerciseMatchingGame = (id) => {
     switch (id) {
-      case 11:
-        return <Ch11ExerciseMatchingGame />;
-      case 12:
-        return <Ch12ExerciseMatchingGame />;
-      case 13:
-        return <Ch13ExerciseMatchingGame />;
-      case 14:
-        return <Ch14ExerciseMatchingGame />;
-      case 15:
-        return <Ch15ExerciseMatchingGame />;
-      case 16:
-        return <Ch16ExerciseMatchingGame />;
-      case 17:
-        return <Ch17ExerciseMatchingGame />;
-      case 18:
-        return <Ch18ExerciseMatchingGame />;
-      case 19:
-        return <Ch19ExerciseMatchingGame />;
-      case 20:
-        return <Ch20ExerciseMatchingGame />;
-      case 21:
-        return <Ch21ExerciseMatchingGame />;
-      default:
-        return <p>Exercise Matching Game Not Available</p>;
+      case 11: return <Ch11ExerciseMatchingGame />;
+      case 12: return <Ch12ExerciseMatchingGame />;
+      case 13: return <Ch13ExerciseMatchingGame />;
+      case 14: return <Ch14ExerciseMatchingGame />;
+      case 15: return <Ch15ExerciseMatchingGame />;
+      case 16: return <Ch16ExerciseMatchingGame />;
+      case 17: return <Ch17ExerciseMatchingGame />;
+      case 18: return <Ch18ExerciseMatchingGame />;
+      case 19: return <Ch19ExerciseMatchingGame />;
+      case 20: return <Ch20ExerciseMatchingGame />;
+      case 21: return <Ch21ExerciseMatchingGame />;
+      default: return <NewExerciseMatchingGame chapterId={`exercise-chapter${id}`} />;
     }
   };
 

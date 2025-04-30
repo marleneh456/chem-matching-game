@@ -552,8 +552,8 @@ const MatchingGame = () => {
   const definitionListRef = useRef(null);
 
   useEffect(() => {
-    localStorage.setItem("flashcards", JSON.stringify(initialItems));
-  }, [initialItems]);
+      localStorage.setItem(chapterKey, JSON.stringify(initialItems));
+    }, [initialItems]);
 
   const handleDrop = (e, definitionId) => {
     const termId = e.dataTransfer.getData("termId");

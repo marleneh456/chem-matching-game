@@ -1,259 +1,21 @@
-// src/components/Ch17ExerciseMatchingGame.js
+// src/components/NewMatchingGame.js
 import React, { useState, useEffect, useRef } from "react";
 import { Document, Page, Text, Image, StyleSheet, pdf } from "@react-pdf/renderer";
 import { saveAs } from "file-saver";
 import "./styles.css";
 
-const defaultItems = [
-  {
-    id: 1,
-    term: "Enzyme",
-    definition: "A biomolecule that catalyzes chemical reactions",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 2,
-    term: "Catalytic Efficiency",
-    definition: null,
-    termImage: null,
-    definitionImage: "./images/Catalytic Efficiency.png",
-  },
-  {
-    id: 3,
-    term: "The influence of enzymes on the rates of reactions",
-    definition: null,
-    termImage: null,
-    definitionImage: "./images/rates of reactions.png",
-  },
-  {
-    id: 4,
-    term: "Enzyme specificity is a second characteristic that is important in life processes",
-    definition: null,
-    termImage: null,
-    definitionImage: "./images/Enzyme specificity.png",
-  },
-  {
-    id: 5,
-    term: "absolute specificity",
-    definition: "The characteristic of an enzyme that it acts on one and only one substance.",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 6,
-    term: "relative specificity",
-    definition: "The characteristic of an enzyme that it acts on several structurally related substances.",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 7,
-    term: "stereochemical specificity",
-    definition: "The characteristic of an enzyme that it is able to distinguish between stereoisomers.",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 8,
-    term: "Regulation",
-    definition: "The cell controls the rates of these reactions and the amount of any given product formed by regulating the action of the enzymes.",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 9,
-    term: "Oxidoreductases",
-    definition: "Oxidation–reduction reactions",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 10,
-    term: "Transferases",
-    definition: "Transfer of functional groups",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 11,
-    term: "Hydrolases",
-    definition: "Hydrolysis reactions",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 12,
-    term: "Lyases",
-    definition: "Addition to double bonds or the reverse of that reaction",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 13,
-    term: "Isomerases",
-    definition: "Isomerization reactions",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 14,
-    term: "Ligases",
-    definition: "Formation of bonds with ATP cleavage",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 15,
-    term: "substrate",
-    definition: "The substance that undergoes a chemical change catalyzed by an enzyme.",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 16,
-    term: "The hydrolysis of urea",
-    definition: null,
-    termImage: null,
-    definitionImage: "./images/hydrolysis of urea.png",
-  },
-  {
-    id: 17,
-    term: "Substrate: urea",
-    definition: "Common name: urea + ase = urease",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 18,
-    term: "Substrate: alcohol (ethyl alcohol)",
-    definition: "Reaction type: dehydrogenation (removal of hydrogen) Common name: alcohol dehydrogenation + ase = alcohol dehydrogenase",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 19,
-    term: "Learning check 20.1 Predict the substrates for the following enzymes: a. maltase",
-    definition: "maltose",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 20,
-    term: "Learning check 20.1 Predict the substrates for the following enzymes: b. peptidase",
-    definition: "peptides",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 21,
-    term: "Learning check 20.1 Predict the substrates for the following enzymes: c. glucose 6-phosphate isomerase",
-    definition: "glucose-6-phosphate",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 22,
-    term: "cofactor",
-    definition: "A nonprotein molecule or ion required by an enzyme for catalytic activity.",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 23,
-    term: "coenzyme",
-    definition: "An organic molecule required by an enzyme for catalytic activity.",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 24,
-    term: "apoenzyme",
-    definition: "A catalytically inactive protein formed by removal of the cofactor from an active enzyme.",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 25,
-    term: "active enzyme",
-    definition: null,
-    termImage: null,
-    definitionImage: "./images/active enzyme.png",
-  },
-  {
-    id: 26,
-    term: "biotin",
-    definition: "Coenzyme Form: biocytin, Function: Carboxyl group removal or transfer",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 27,
-    term: "folacin",
-    definition: "Coenzyme Form: tetrahydrofolic acid, Function: One-carbon group transfer",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 28,
-    term: "lipoic acid",
-    definition: "Coenzyme Form: lipoamide, Function: Acyl group transfer",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 29,
-    term: "niacin",
-    definition: "Coenzyme Form: nicotinamide adenine dinucleotide (NAD+) , Function: Hydrogen transfer and Coenzyme Form: nicotinamide adenine dinucleotide phosphate (NADP+), Function: Hydrogen transfer",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 30,
-    term: "pantothenic acid",
-    definition: "Coenzyme Form: coenzyme A (CoA), Function: Acyl group carrier",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 31,
-    term: "pyridoxal, pyridoxamine, pyridoxine (B6 group)",
-    definition: "Coenzyme Form: pyridoxal phosphate, Function: Amino group transfer",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 32,
-    term: "riboflavin",
-    definition: "Coenzyme Form: flavin mononucleotide (FMN), Function: Hydrogen transfer, and Coenzyme Form: flavin adenine dinucleotide (FAD), Function: Hydrogen transfer",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 33,
-    term: "thiamin (B1)",
-    definition: "Coenzyme Form: thiamin pyrophosphate (TPP), Function: Aldehyde group transfer",
-    termImage: null,
-    definitionImage: null,
-  },
-  {
-    id: 34,
-    term: "vitamin B12",
-    definition: "Coenzyme Form: coenzyme B12, Function: Shift of hydrogen atoms between adjacent carbon atoms; methyl group transfer",
-    termImage: null,
-    definitionImage: null,
-  },
-
-];
-
-
 const shuffleArray = (array) => [...array].sort(() => Math.random() - 0.5);
 
-const MatchingGame = () => {
-  const chapterKey = "execrise-ch17-flashcards";
+const NewMatchingGame = ({ chapterId }) => {
+  const chapterKey = `flashcards-${chapterId}`;
+const titleKey = `title-${chapterId}`;
+
+
+  const [title, setTitle] = useState(() => localStorage.getItem(titleKey) || "New Matching Game");
+  const [editingTitle, setEditingTitle] = useState(false);
   const [initialItems, setInitialItems] = useState(() => {
-  const saved = localStorage.getItem(chapterKey);
-  return saved ? JSON.parse(saved) : defaultItems;
+    const saved = localStorage.getItem(chapterKey);
+    return saved ? JSON.parse(saved) : [];
   });
 
   const [termItems, setTermItems] = useState(shuffleArray([...initialItems]));
@@ -273,8 +35,13 @@ const MatchingGame = () => {
   const definitionListRef = useRef(null);
 
   useEffect(() => {
-      localStorage.setItem(chapterKey, JSON.stringify(initialItems));
-    }, [initialItems]);
+    localStorage.setItem(chapterKey, JSON.stringify(initialItems));
+  }, [initialItems, chapterKey]);
+  
+  useEffect(() => {
+    localStorage.setItem(titleKey, title);
+  }, [title, titleKey]);
+  
 
   const handleDrop = (e, definitionId) => {
     const termId = e.dataTransfer.getData("termId");
@@ -298,7 +65,6 @@ const MatchingGame = () => {
   };
 
   const checkAnswers = () => setIsDone(true);
-
   const resetGame = () => {
     setMatches({});
     setUsedTerms([]);
@@ -380,7 +146,7 @@ const MatchingGame = () => {
     <Document>
       {termItems.map((item, index) => (
         <Page key={index} style={styles.page}>
-          {index === 0 && <Text style={styles.title}>Exercise Chapter 17</Text>}
+          {index === 0 && <Text style={styles.title}>{title}</Text>}
           <div style={styles.section}>
             <div style={styles.card}>
               <Text style={styles.termText}>{index + 1}. Term: {item.term}</Text>
@@ -401,9 +167,39 @@ const MatchingGame = () => {
 
   return (
     <div className="game-container">
-      <h1>Exercise Chapter 17 Drag-and-Drop Matching Game</h1>
+      {editingTitle ? (
+  <div>
+    <input
+      value={title}
+      onChange={(e) => setTitle(e.target.value)}
+    />
+    <div style={{ marginTop: "10px" }}>
+      <button
+        onClick={() => {
+          localStorage.setItem(titleKey, title);
+          setEditingTitle(false);
+        }}
+        style={{ marginRight: "10px" }}
+      >
+        Save
+      </button>
+      <button
+        onClick={() => {
+          // Revert to last saved title without saving edits
+          const lastSavedTitle = localStorage.getItem(titleKey) || "New Matching Game";
+          setTitle(lastSavedTitle);
+          setEditingTitle(false);
+        }}
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+) : (
+  <h1 onClick={() => setEditingTitle(true)}>{title}</h1>
+)}
 
-      {/* Add Flashcard */}
+
       <div className="add-flashcard">
         <h2>Add New Flashcard</h2>
         <input type="text" placeholder="Term" value={newTerm} onChange={(e) => setNewTerm(e.target.value)} />
@@ -434,7 +230,6 @@ const MatchingGame = () => {
         <button onClick={addFlashcard}>Add Flashcard</button>
       </div>
 
-      {/* Delete Flashcard */}
       <div className="delete-flashcard">
         <h2>Delete Flashcard</h2>
         {initialItems.map((item) => (
@@ -444,7 +239,6 @@ const MatchingGame = () => {
         ))}
       </div>
 
-      {/* Matching Game */}
       <div className="game-grid">
         <div className="term-list-container">
           <div className="term-list" ref={termListRef}>
@@ -460,15 +254,7 @@ const MatchingGame = () => {
         <div className="definition-list-container">
           <div className="definition-list" ref={definitionListRef}>
             {definitionItems.map((item) => (
-              <div
-                key={`definition-${item.id}`}
-                className={`card dropzone ${
-                  isDone && matches[item.id] === item.id ? "correct" :
-                  isDone && matches[item.id] !== item.id ? "incorrect" : ""
-                }`}
-                onDragOver={(e) => e.preventDefault()}
-                onDrop={(e) => handleDrop(e, item.id)}
-              >
+              <div key={`definition-${item.id}`} className={`card dropzone ${isDone && matches[item.id] === item.id ? "correct" : isDone && matches[item.id] !== item.id ? "incorrect" : ""}`} onDragOver={(e) => e.preventDefault()} onDrop={(e) => handleDrop(e, item.id)}>
                 {item.definitionImage && <img src={item.definitionImage} alt="Definition" />}
                 <p>{item.definition}</p>
                 {isDone && (
@@ -508,4 +294,4 @@ const MatchingGame = () => {
   );
 };
 
-export default MatchingGame;
+export default NewMatchingGame;
